@@ -40,6 +40,27 @@ char* getTextString()
    return inputbuffer;
 }
 
+char* getPatternString()
+{
+   FILE *input, *output;
+   char c;
+   char * inputbuffer=(char *)malloc(sizeof(char)*TEXT_MAX_LENGTH);
+   
+   int numchars = 0, index  = 0;
+
+   input = fopen("patterns.txt", "r");
+   c = fgetc(input);
+   while(c != '\n')
+   {
+	inputbuffer[numchars] = c;
+  	numchars++;
+	c = fgetc(input);
+   }
+   fclose(input);
+   inputbuffer[numchars] = '\0'; 
+   return inputbuffer;
+}
+
 
 __global__ void match(uint32_t* BB_d,const char* text_d,int n, int m,int k,int J,int lc,int start_addr,int textBlockSize,int overlap ,int* matched)
 {
@@ -120,10 +141,7 @@ int main(void)
 
 
 	cudaEventRecord(start, 0);
-	const char pattern_h[] = "TACACGAGGAGAGGAGAAGAACA";
-	//const char pattern_h[] = "ACGACG";
-	//const char text_h[] = "TTTACGGCG";
-	//        const char text_h[] = "ACGATCGTAGCTAGTCGATGCTAGCTAGCTGATCGTACGTAGCTGTACGTAGCTATCGTAGCTACTGATCGTAGCTAGCTAGCGTAGTATATATTATACGTA";
+	const char pattern_h[] = getPatternString();
 	char * text_h=getTextString();
 	cudaEventRecord(stop, 0);
 	cudaEventSynchronize(stop);

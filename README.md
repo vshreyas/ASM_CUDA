@@ -14,7 +14,7 @@ Optimized for NVIDIA Kepler architecture
 
 Usage
 =========================================
-Build row_new.c using nvcc to  : 
+Build row_gpu.cu using nvcc: 
 http://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc
 
 Run generated executable with target string in file "sequence.fasta" in 
@@ -25,6 +25,6 @@ rebuilt every time.
 
 Algorithm, results and discussion
 =========================================
-See report
+See report 614_2012C_approximate_string_matching_dileepkumar_george_binayakumar_evaluation
 
 
